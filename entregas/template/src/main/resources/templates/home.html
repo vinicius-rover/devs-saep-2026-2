@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="navbar-container">
+        <a class="navbar-brand" th:href="@{/home}">Template</a>
+
+        <ul class="navbar-menu">
+            <li>
+                <a class="nav-link active" th:href="@{/home}">Home</a>
+            </li>
+            <li>
+                <a class="nav-link" th:href="@{/usuarios}">Usuários</a>
+            </li>
+            <li>
+                <a class="nav-link" th:href="@{/logout}">Sair</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Conteúdo principal -->
+<main class="pagina">
+    <div class="home-container">
+
+        <div class="welcome-card">
+
+            <div class="titulo">
+                <h1>Bem-vindo ao sistema</h1>
+                <div class="linha"></div>
+            </div>
+
+            <h6 class="descricao">
+                Bem vindo -
+                <div th:if="${usuarioLogado}" th:text="${usuarioLogado.usuarioNome}"></div>
+            </h6>
+
+
+            <p class="descricao">
+                Esta é uma página inicial simples feita com Spring Boot, Thymeleaf e um design moderno.
+                Acesse o menu acima para gerenciar os usuários do sistema.
+            </p>
+
+            <div class="acoes">
+                <a class="botao" th:href="@{/usuarios}">
+                    Acessar Usuários
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>
