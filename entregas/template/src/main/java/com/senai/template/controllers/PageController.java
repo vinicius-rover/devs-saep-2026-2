@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -56,19 +55,24 @@ public class PageController {
 		SessaoDto sessaoDto = new SessaoDto();
 		sessaoDto.setUsuarioId(usuarioDto.getId());
 		sessaoDto.setUsuarioNome(usuarioDto.getNome());
+
 		SessaoUtil.RegistrarSessao(session, sessaoDto);
 
 		System.out.println("Sessão: ");
 		System.out.println(sessaoDto.getUsuarioId());
 		System.out.println(sessaoDto.getUsuarioNome());
 
-		redirectAttributes.addFlashAttribute("mensagem", "Bem-vindo, " + usuarioDto.getNome() + ".");
+		redirectAttributes.addFlashAttribute(
+				"mensagem",
+				"Bem-vindo, " + usuarioDto.getNome() + "."
+		);
+
 		return "redirect:/home";
 	}
 
-
 	@GetMapping("/home")
 	public String home(HttpSession session, Model model) {
+
 		SessaoDto sessaoDto = SessaoUtil.ObterSessao(session);
 
 		if (sessaoDto == null) {
@@ -76,8 +80,63 @@ public class PageController {
 		}
 
 		model.addAttribute("usuarioLogado", sessaoDto);
+
 		return "home";
 	}
 
+	@GetMapping("/produtos")
+	public String produtos(HttpSession session, Model model) {
 
+		SessaoDto sessaoDto = SessaoUtil.ObterSessao(session);
+
+		if (sessaoDto == null) {
+			return "redirect:/login";
+		}
+
+		model.addAttribute("usuarioLogado", sessaoDto);
+
+		return "produtos";
+	}
+
+	@GetMapping("/usuarios")
+	public String usuarios(HttpSession session, Model model) {
+
+		SessaoDto sessaoDto = SessaoUtil.ObterSessao(session);
+
+		if (sessaoDto == null) {
+			return "redirect:/login";
+		}
+
+		model.addAttribute("usuarioLogado", sessaoDto);
+
+		return "usuarios";
+	}
+
+	@GetMapping("/estoque")
+	public String estoque(HttpSession session, Model model) {
+
+		SessaoDto sessaoDto = SessaoUtil.ObterSessao(session);
+
+		if (sessaoDto == null) {
+			return "redirect:/login";
+		}
+
+		model.addAttribute("usuarioLogado", sessaoDto);
+
+		return "estoque";
+	}
+
+	@GetMapping("/movimentacoes")
+	public String movimentacoes(HttpSession session, Model model) {
+
+		SessaoDto sessaoDto = SessaoUtil.ObterSessao(session);
+
+		if (sessaoDto == null) {
+			return "redirect:/login";
+		}
+
+		model.addAttribute("usuarioLogado", sessaoDto);
+
+		return "movimentacoes";
+	}
 }
