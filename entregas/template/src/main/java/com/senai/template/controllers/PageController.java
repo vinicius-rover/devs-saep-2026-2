@@ -99,7 +99,9 @@ public class PageController {
 	}
 
 	@GetMapping("/usuarios")
-	public String usuarios(HttpSession session, Model model) {
+	public String usuarios(HttpSession session,
+						Model model,
+						@RequestParam(required = false) Long editar) {
 
 		SessaoDto sessaoDto = SessaoUtil.ObterSessao(session);
 
@@ -108,6 +110,17 @@ public class PageController {
 		}
 
 		model.addAttribute("usuarioLogado", sessaoDto);
+		model.addAttribute("usuarios", usuarioService.listarTodos());
+
+		UsuarioDto usuarioForm = new UsuarioDto();
+		if (editar != null) {
+			UsuarioDto usuarioEncontrado = usuarioService.buscarPorId(editar);
+			if (usuarioEncontrado != null) {
+				usuarioForm = usuarioEncontrado;
+			}
+		}
+
+		model.addAttribute("usuarioForm", usuarioForm);
 
 		return "usuarios";
 	}

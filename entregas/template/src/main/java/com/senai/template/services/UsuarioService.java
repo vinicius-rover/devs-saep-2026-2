@@ -25,9 +25,73 @@ public class UsuarioService {
             return null;
         }
 
-        UsuarioEntity usuarioEntity = usuarioEntityOptional.get();
+        return converterEntityParaDto(usuarioEntityOptional.get());
+    }
+
+    public List<UsuarioDto> listarTodos() {
+        List<UsuarioDto> usuarios = new ArrayList<>();
+
+        for (UsuarioEntity usuarioEntity : usuarioRepository.findAll()) {
+            usuarios.add(converterEntityParaDto(usuarioEntity));
+        }
+
+        return usuarios;
+    }
+
+    public UsuarioDto buscarPorId(Long id) {
+        Optional<UsuarioEntity> usuarioEntity = usuarioRepository.findById(id);
+
+        if (usuarioEntity.isEmpty()) {
+            return null;
+        }
+
+        return converterEntityParaDto(usuarioEntity.get());
+    }
+
+    public UsuarioDto salvar(UsuarioDto usuarioDto) {
+        UsuarioEntity usuarioEntity;
+
+        if (usuarioDto.getId() != null) {
+            Optional<UsuarioEntity> usuarioExistente = usuarioRepository.findById(usuarioDto.getId());
+
+            if (usuarioExistente.isEmpty()) {
+                return null;
+            }
+
+            usuarioEntity = usuarioExistente.get();
+            usuarioEntity.setNome(usuarioDto.getNome());
+            usuarioEntity.setEmail(usuarioDto.getEmail());
+            // A senha nao e alterada pelo cadastro/edicao normal.
+        } else {
+            usuarioEntity = converterDtoParaEntity(usuarioDto);
+        }
+
+        usuarioEntity = usuarioRepository.save(usuarioEntity);
         return converterEntityParaDto(usuarioEntity);
     }
+
+    public void excluir(Long id) {
+        usuarioRepository.deleteById(id);
+    }
+
+    public boolean trocarSenha(String login, String senhaAtual, String senhaNova) {
+        Optional<UsuarioEntity> usuarioEntityOptional = usuarioRepository.findByEmail(login);
+
+        if (usuarioEntityOptional.isEmpty()) {
+            return false;
+        }
+
+        UsuarioEntity usuarioEntity = usuarioEntityOptional.get();
+
+        if (!usuarioEntity.getSenha().equals(senhaAtual)) {
+            return false;
+        }
+
+        usuarioEntity.setSenha(senhaNova);
+        usuarioRepository.save(usuarioEntity);
+        return true;
+    }
+
 
     private UsuarioEntity converterDtoParaEntity(UsuarioDto usuarioDto) {
         UsuarioEntity usuarioEntity = new UsuarioEntity();

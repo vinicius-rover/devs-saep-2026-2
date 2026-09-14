@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fe3957b0-0691-4234-b513-0532d631a59b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/entregas/template/src/main/java/com/senai/template/controllers/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/entregas/template/src/main/java/com/senai/template/controllers/PageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entregas/template/src/main/java/com/senai/template/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/entregas/template/src/main/java/com/senai/template/repositories/UsuarioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entregas/template/src/main/java/com/senai/template/services/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/entregas/template/src/main/java/com/senai/template/services/UsuarioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entregas/template/src/main/resources/templates/usuarios.html" beforeDir="false" afterPath="$PROJECT_DIR$/entregas/template/src/main/resources/templates/usuarios.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="3JKynGYONdHNZGuqIW9wbe4iC5t" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "last_opened_file_path": "C:/Users/johnny_parma.EDU_FIESC/Desktop/Nova pasta"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fe3957b0-0691-4234-b513-0532d631a59b" name="Changes" comment="" />
+      <created>1789424219304</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1789424219304</updated>
+    </task>
+    <servers />
+  </component>
+</project>
