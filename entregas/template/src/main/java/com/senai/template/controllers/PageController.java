@@ -152,4 +152,17 @@ public class PageController {
 
 		return "movimentacoes";
 	}
+
+	@GetMapping("/categoria")
+	public String categorias(HttpSession session, Model model){
+		SessaoDto sessaoDto = SessaoUtil.ObterSessao(session);
+
+		if (sessaoDto == null) {
+			return "redirect:/login";
+		}
+
+		model.addAttribute("usuarioLogado", sessaoDto);
+
+		return "categorias";
+	}
 }
