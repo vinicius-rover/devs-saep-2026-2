@@ -38,6 +38,16 @@
         <p>Consulte todas as entradas e saídas registradas no estoque.</p>
     </header>
 
+    <section class="card-estoque" style="margin-bottom:20px;">
+        <div class="card-cabecalho"><div><h2>Buscar movimentações</h2><p>Filtre por produto, tipo ou pessoa responsável.</p></div></div>
+        <form th:action="@{/movimentacoes}" method="get" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end;">
+            <div class="campo" style="flex:1;min-width:200px;"><label for="buscaProduto">Produto</label><input id="buscaProduto" name="buscaProduto" th:value="${buscaProduto}" placeholder="Nome do produto..."></div>
+            <div class="campo" style="min-width:160px;"><label for="tipo">Tipo</label><select id="tipo" name="tipo"><option value="">Todos</option><option value="ENTRADA" th:selected="${tipo == 'ENTRADA'}">Entrada</option><option value="SAIDA" th:selected="${tipo == 'SAIDA'}">Saída</option></select></div>
+            <div class="campo" style="flex:1;min-width:200px;"><label for="buscaUsuario">Pessoa</label><input id="buscaUsuario" name="buscaUsuario" th:value="${buscaUsuario}" placeholder="Nome da pessoa..."></div>
+            <button class="btn btn-primary" type="submit">Buscar</button><a class="btn btn-secondary" th:href="@{/movimentacoes}">Limpar</a>
+        </form>
+    </section>
+
     <section class="card-estoque card-lista">
         <div class="card-cabecalho card-cabecalho-lista">
             <div>

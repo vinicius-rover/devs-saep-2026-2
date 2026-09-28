@@ -110,6 +110,18 @@
         <p>Somente usuários administradores podem cadastrar, editar ou excluir produtos.</p>
     </section>
 
+    <section class="card-usuarios" style="margin-bottom:20px;">
+        <div class="card-cabecalho">
+            <div><h2>Buscar produtos</h2><p>Filtre por nome ou categoria.</p></div>
+        </div>
+        <form th:action="@{/produtos}" method="get" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end;">
+            <div class="campo" style="flex:1;min-width:220px;"><label for="busca">Nome do produto</label><input id="busca" name="busca" th:value="${busca}" placeholder="Digite o nome..."></div>
+            <div class="campo" style="flex:1;min-width:220px;"><label for="categoriaBusca">Categoria</label><input id="categoriaBusca" name="categoriaBusca" th:value="${categoriaBusca}" placeholder="Digite a categoria..."></div>
+            <button class="btn btn-primary" type="submit">Buscar</button>
+            <a class="btn btn-secondary" th:href="@{/produtos}">Limpar</a>
+        </form>
+    </section>
+
     <section class="card-usuarios card-lista">
         <div class="card-cabecalho card-cabecalho-lista">
             <div>

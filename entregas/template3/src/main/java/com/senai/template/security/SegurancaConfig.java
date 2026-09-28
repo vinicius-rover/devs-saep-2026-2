@@ -21,10 +21,9 @@ public class SegurancaConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(regras -> regras
-                .requestMatchers("/", "/login", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+                .requestMatchers("/", "/login", "/css/**", "/js/**", "/images/**").permitAll()
                 .requestMatchers("/home", "/produtos", "/usuarios", "/categorias", "/estoque", "/movimentacoes", "/categoria").authenticated()
-                .requestMatchers("/produtos/salvar", "/usuarios/salvar", "/categorias/salvar", "/movimentacoes/salvar").hasRole("ADMIN")
-                .requestMatchers("/produtoexcluir/**", "/categoriaexcluir/**", "/usuarioexcluir/**", "/usuario/senha/**").hasRole("ADMIN")
+                .requestMatchers("/produtos/**", "/usuarios/**", "/categorias/**", "/estoque/**", "/movimentacoes/**", "/produtoexcluir/**", "/categoriaexcluir/**", "/usuarioexcluir/**", "/usuario/senha/**").hasRole("ADMIN")
                 .anyRequest().authenticated())
             .formLogin(form -> form
                 .loginPage("/login")

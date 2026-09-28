@@ -111,6 +111,14 @@
         </div>
     </section>
 
+    <section class="card-estoque" style="margin-bottom:20px;">
+        <div class="card-cabecalho"><div><h2>Buscar no estoque</h2><p>Filtre os produtos exibidos no estoque pelo nome.</p></div></div>
+        <form th:action="@{/estoque}" method="get" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end;">
+            <div class="campo" style="flex:1;min-width:260px;"><label for="busca">Produto</label><input id="busca" name="busca" th:value="${busca}" placeholder="Digite o nome do produto..."></div>
+            <button class="btn btn-primary" type="submit">Buscar</button><a class="btn btn-secondary" th:href="@{/estoque}">Limpar</a>
+        </form>
+    </section>
+
     <section class="card-estoque card-lista">
         <div class="card-cabecalho card-cabecalho-lista">
             <div>

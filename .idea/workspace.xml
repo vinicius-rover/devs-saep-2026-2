@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="fe3957b0-0691-4234-b513-0532d631a59b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/entregas/template/src/main/java/com/senai/template/controllers/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/entregas/template/src/main/java/com/senai/template/controllers/PageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entregas/template/src/main/java/com/senai/template/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/entregas/template/src/main/java/com/senai/template/repositories/UsuarioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entregas/template/src/main/java/com/senai/template/services/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/entregas/template/src/main/java/com/senai/template/services/UsuarioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entregas/template/src/main/resources/templates/usuarios.html" beforeDir="false" afterPath="$PROJECT_DIR$/entregas/template/src/main/resources/templates/usuarios.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="3JKynGYONdHNZGuqIW9wbe4iC5t" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -22,12 +34,37 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.TemplateApplication.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "last_opened_file_path": "C:/Users/johnny_parma.EDU_FIESC/Desktop/Nova pasta"
+    "git-widget-placeholder": "homolog",
+    "last_opened_file_path": "C:/Users/johnny_parma/Desktop/hj/pom.xml"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="TemplateApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="23" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.senai.template.TemplateApplication" />
+      <module name="template" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.senai.template.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TemplateApplication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="fe3957b0-0691-4234-b513-0532d631a59b" name="Changes" comment="" />

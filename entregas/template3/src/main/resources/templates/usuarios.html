@@ -93,6 +93,14 @@
         </div>
     </section>
 
+    <section class="card-usuarios" style="margin-bottom:20px;">
+        <div class="card-cabecalho"><div><h2>Buscar pessoas</h2><p>Pesquise por nome, e-mail ou perfil.</p></div></div>
+        <form th:action="@{/usuarios}" method="get" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end;">
+            <div class="campo" style="flex:1;min-width:280px;"><label for="busca">Nome, e-mail ou perfil</label><input id="busca" name="busca" th:value="${busca}" placeholder="Ex.: João, email@..., administrador..."></div>
+            <button class="btn btn-primary" type="submit">Buscar</button><a class="btn btn-secondary" th:href="@{/usuarios}">Limpar</a>
+        </form>
+    </section>
+
     <section class="card-usuarios card-lista">
         <div class="card-cabecalho card-cabecalho-lista">
             <div>

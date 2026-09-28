@@ -82,6 +82,14 @@
         </div>
     </section>
 
+    <section class="card-categorias" style="margin-bottom:20px;">
+        <div class="card-cabecalho"><div><h2>Buscar categorias</h2><p>Filtre pelo nome da categoria.</p></div></div>
+        <form th:action="@{/categorias}" method="get" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end;">
+            <div class="campo" style="flex:1;min-width:260px;"><label for="busca">Nome</label><input id="busca" name="busca" th:value="${busca}" placeholder="Digite o nome..."></div>
+            <button class="btn btn-primary" type="submit">Buscar</button><a class="btn btn-secondary" th:href="@{/categorias}">Limpar</a>
+        </form>
+    </section>
+
     <section class="card-categorias card-lista">
         <div class="card-cabecalho card-cabecalho-lista">
             <div>
