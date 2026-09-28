@@ -1,10 +1,13 @@
+const csrfToken = document.querySelector('meta[name="_csrf"]')?.getAttribute('content');
+const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.getAttribute('content');
+
 document.querySelectorAll('.excluir-produto').forEach(function (botao) {
     botao.addEventListener('click', async function () {
         const id = this.dataset.id;
         if (!confirm('Deseja realmente excluir este produto?')) return;
 
         try {
-            const resposta = await fetch('/produtoexcluir/' + id, { method: 'DELETE' });
+            const resposta = await fetch('/produtoexcluir/' + id, { method: 'DELETE', headers: csrfToken && csrfHeader ? { [csrfHeader]: csrfToken } : {} });
             if (resposta.ok) {
                 window.location.reload();
                 return;

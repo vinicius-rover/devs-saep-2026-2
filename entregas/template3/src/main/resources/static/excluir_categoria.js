@@ -1,3 +1,6 @@
+const csrfToken = document.querySelector('meta[name="_csrf"]')?.getAttribute('content');
+const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.getAttribute('content');
+
 document.querySelectorAll('.excluir-categoria').forEach(function (button) {
     button.addEventListener('click', async function () {
         const id = this.dataset.id;
@@ -9,7 +12,8 @@ document.querySelectorAll('.excluir-categoria').forEach(function (button) {
 
         try {
             const response = await fetch('/categoriaexcluir/' + id, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: csrfToken && csrfHeader ? { [csrfHeader]: csrfToken } : {}
             });
 
             if (!response.ok) {

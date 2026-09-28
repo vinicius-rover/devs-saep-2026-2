@@ -1,3 +1,6 @@
+const csrfToken = document.querySelector('meta[name="_csrf"]')?.getAttribute('content');
+const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.getAttribute('content');
+
 // Adicione um ouvinte de eventos aos botoes de exclusao
 document.querySelectorAll('.excluir').forEach(function(button) {
     button.addEventListener('click',
@@ -14,7 +17,8 @@ document.querySelectorAll('.excluir').forEach(function(button) {
             fetch(`/usuarioexcluir/${id}`, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    ...(csrfToken && csrfHeader ? { [csrfHeader]: csrfToken } : {})
                 },
             })
             .then(response => {

@@ -4,6 +4,7 @@ import com.senai.template.dtos.UsuarioDto;
 import com.senai.template.entities.UsuarioEntity;
 import com.senai.template.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +14,11 @@ import java.util.Optional;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UsuarioDto autenticar(String email, String senha) {
@@ -65,6 +68,9 @@ public class UsuarioService {
             // A senha nao e alterada pelo cadastro/edicao normal.
         } else {
             usuarioEntity = converterDtoParaEntity(usuarioDto);
+            if (usuarioEntity.getSenha() != null && !usuarioEntity.getSenha().isBlank()) {
+                usuarioEntity.setSenha(passwordEncoder.encode(usuarioEntity.getSenha()));
+            }
         }
 
         usuarioEntity = usuarioRepository.save(usuarioEntity);
@@ -84,11 +90,11 @@ public class UsuarioService {
 
         UsuarioEntity usuarioEntity = usuarioEntityOptional.get();
 
-        if (!usuarioEntity.getSenha().equals(senhaAtual)) {
+        if (!passwordEncoder.matches(senhaAtual, usuarioEntity.getSenha())) {
             return false;
         }
 
-        usuarioEntity.setSenha(senhaNova);
+        usuarioEntity.setSenha(passwordEncoder.encode(senhaNova));
         usuarioRepository.save(usuarioEntity);
         return true;
     }

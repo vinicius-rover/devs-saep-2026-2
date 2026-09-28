@@ -51,14 +51,9 @@ public class UsuarioController {
         }
         boolean isAdmin = sessao.getUserRole() != null && sessao.getUserRole() == 1;
         if (!isAdmin) {
-            if (usuarioDto.getId() == null) {
-                usuarioDto.setUserRole(0);
-            } else {
-                UsuarioDto existente = usuarioService.buscarPorId(usuarioDto.getId());
-                if (existente != null) usuarioDto.setUserRole(existente.getUserRole());
-            }
+            redirectAttributes.addFlashAttribute("erroUsuario", "Apenas administradores podem cadastrar ou editar usuários.");
+            return "redirect:/usuarios";
         }
-
         try {
             UsuarioDto salvo = usuarioService.salvar(usuarioDto);
 
@@ -77,7 +72,11 @@ public class UsuarioController {
 
     @DeleteMapping("/usuarioexcluir/{id}")
     @ResponseBody
-    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+    public ResponseEntity<Void> excluir(@PathVariable Long id, HttpSession session) {
+        SessaoDto sessao = SessaoUtil.ObterSessao(session);
+        if (sessao == null || sessao.getUserRole() == null || sessao.getUserRole() != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         if (usuarioService.buscarPorId(id) == null) {
             return ResponseEntity.notFound().build();
         }
@@ -89,7 +88,13 @@ public class UsuarioController {
     @PutMapping("/usuario/senha/{login}")
     @ResponseBody
     public ResponseEntity<String> trocarSenha(@PathVariable String login,
-                                               @RequestBody TrocaSenhaDto trocaSenhaDto) {
+                                               @RequestBody TrocaSenhaDto trocaSenhaDto,
+                                               HttpSession session) {
+
+        SessaoDto sessao = SessaoUtil.ObterSessao(session);
+        if (sessao == null || sessao.getUserRole() == null || sessao.getUserRole() != 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Apenas administradores podem alterar senhas.");
+        }
 
         if (trocaSenhaDto.getSenhaAtual() == null || trocaSenhaDto.getSenhaAtual().isBlank()
                 || trocaSenhaDto.getSenhaNova() == null || trocaSenhaDto.getSenhaNova().isBlank()

@@ -336,3 +336,6 @@
         flex: 1;
     }
 }
+
+
+.aviso-sem-permissao { border-left: 4px solid #1769aa; }

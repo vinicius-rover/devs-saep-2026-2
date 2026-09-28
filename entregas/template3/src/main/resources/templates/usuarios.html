@@ -2,6 +2,8 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuários</title>
 
@@ -21,7 +23,7 @@
             <li><a class="nav-link" th:href="@{/categorias}">Categorias</a></li>
             <li><a class="nav-link" th:href="@{/estoque}">Estoque</a></li>
             <li><a class="nav-link" th:href="@{/movimentacoes}">Movimentações</a></li>
-            <li><a class="nav-link" th:href="@{/logout}">Sair</a></li>
+            <li><form th:action="@{/logout}" method="post" style="display:inline"><button type="submit" class="nav-link" style="background:none;border:0;cursor:pointer">Sair</button></form></li>
         </ul>
     </div>
 </nav>
@@ -34,7 +36,7 @@
         <p>Cadastre, edite e gerencie os usuários que possuem acesso ao sistema.</p>
     </header>
 
-    <section class="card-usuarios card-formulario">
+    <section class="card-usuarios card-formulario" th:if="${isAdmin}">
         <div class="card-cabecalho">
             <div>
                 <h2 th:text="${usuarioForm.id == null ? 'Novo usuário' : 'Editar usuário'}">Novo usuário</h2>
@@ -82,6 +84,15 @@
         </form>
     </section>
 
+    <section class="card-usuarios aviso-sem-permissao" th:unless="${isAdmin}">
+        <div class="card-cabecalho">
+            <div>
+                <h2>Acesso somente para consulta</h2>
+                <p>Somente administradores podem cadastrar, editar, trocar senha ou excluir usuários.</p>
+            </div>
+        </div>
+    </section>
+
     <section class="card-usuarios card-lista">
         <div class="card-cabecalho card-cabecalho-lista">
             <div>
@@ -99,7 +110,7 @@
                     <th>Nome</th>
                     <th>E-mail</th>
                     <th>Perfil</th>
-                    <th class="coluna-acoes">Ações</th>
+                    <th class="coluna-acoes" th:if="${isAdmin}">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -108,7 +119,7 @@
                     <td th:text="${usuario.nome}"></td>
                     <td th:text="${usuario.email}"></td>
                     <td th:text="${usuario.userRole == 1 ? 'Administrador' : 'Usuário'}"></td>
-                    <td>
+                    <td th:if="${isAdmin}">
                         <div class="acoes-tabela">
                             <a class="btn btn-secondary"
                                th:href="@{/usuarios(editar=${usuario.id})}">Editar</a>
@@ -129,7 +140,7 @@
                 </tr>
 
                 <tr class="linha-vazia" th:if="${#lists.isEmpty(usuarios)}">
-                    <td colspan="5">Nenhum usuário cadastrado.</td>
+                    <td th:attr="colspan=${isAdmin ? 5 : 4}">Nenhum usuário cadastrado.</td>
                 </tr>
                 </tbody>
             </table>
@@ -138,7 +149,7 @@
 
 </main>
 
-<dialog id="modalSenha">
+<dialog id="modalSenha" th:if="${isAdmin}">
     <div class="modal-conteudo">
         <div class="modal-cabecalho">
             <h2>Trocar senha</h2>
@@ -206,7 +217,8 @@
             const response = await fetch('/usuario/senha/' + encodeURIComponent(emailSelecionado), {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    [document.querySelector('meta[name="_csrf_header"]').content]: document.querySelector('meta[name="_csrf"]').content
                 },
                 body: JSON.stringify(dados)
             });

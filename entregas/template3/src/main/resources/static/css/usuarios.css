@@ -463,3 +463,6 @@ dialog::backdrop {
     border-color: #1769aa;
     box-shadow: 0 0 0 3px rgba(23, 105, 170, 0.08);
 }
+
+
+.aviso-sem-permissao { border-left: 4px solid #1769aa; }

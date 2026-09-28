@@ -2,6 +2,9 @@ package com.senai.template.controllers;
 
 import com.senai.template.dtos.CategoriaDto;
 import com.senai.template.services.CategoriaService;
+import com.senai.template.sessoes.SessaoDto;
+import com.senai.template.sessoes.SessaoUtil;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +25,17 @@ public class CategoriaController {
 
     @PostMapping("/categorias/salvar")
     public String salvar(@ModelAttribute CategoriaDto categoriaDto,
-                         RedirectAttributes redirectAttributes) {
+                         RedirectAttributes redirectAttributes,
+                         HttpSession session) {
+
+        SessaoDto usuario = SessaoUtil.ObterSessao(session);
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+        if (usuario.getUserRole() == null || usuario.getUserRole() != 1) {
+            redirectAttributes.addFlashAttribute("erroCategoria", "Apenas administradores podem cadastrar ou editar categorias.");
+            return "redirect:/categorias";
+        }
 
         if (categoriaDto.getNome() == null || categoriaDto.getNome().isBlank()) {
             redirectAttributes.addFlashAttribute("erroCategoria", "O nome da categoria e obrigatorio.");
@@ -45,7 +58,12 @@ public class CategoriaController {
 
     @DeleteMapping("/categoriaexcluir/{id}")
     @ResponseBody
-    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+    public ResponseEntity<Void> excluir(@PathVariable Long id, HttpSession session) {
+        SessaoDto usuario = SessaoUtil.ObterSessao(session);
+        if (usuario == null || usuario.getUserRole() == null || usuario.getUserRole() != 1) {
+            return ResponseEntity.status(403).build();
+        }
+
         boolean excluiu = categoriaService.excluirCategoria(id);
 
         if (!excluiu) {

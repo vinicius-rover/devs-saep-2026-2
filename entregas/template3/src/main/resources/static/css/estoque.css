@@ -351,3 +351,6 @@
         min-width: 850px;
     }
 }
+
+
+.aviso-sem-permissao { border-left: 4px solid #1769aa; }

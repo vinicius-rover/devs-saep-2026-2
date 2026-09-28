@@ -31,6 +31,11 @@ public class MovimentacaoController {
             return "redirect:/login";
         }
 
+        if (usuario.getUserRole() == null || usuario.getUserRole() != 1) {
+            redirectAttributes.addFlashAttribute("erroMovimentacao", "Apenas administradores podem registrar movimentações.");
+            return "redirect:/estoque";
+        }
+
         String erro = movimentacaoService.registrar(
                 produtoId,
                 tipo,

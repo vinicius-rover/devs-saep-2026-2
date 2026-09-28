@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movimentações</title>
 
@@ -23,7 +25,7 @@
             <li><a class="nav-link" th:href="@{/categorias}">Categorias</a></li>
             <li><a class="nav-link" th:href="@{/estoque}">Estoque</a></li>
             <li><a class="nav-link active" th:href="@{/movimentacoes}">Movimentações</a></li>
-            <li><a class="nav-link" th:href="@{/logout}">Sair</a></li>
+            <li><form th:action="@{/logout}" method="post" style="display:inline"><button type="submit" class="nav-link" style="background:none;border:0;cursor:pointer">Sair</button></form></li>
         </ul>
     </div>
 </nav>

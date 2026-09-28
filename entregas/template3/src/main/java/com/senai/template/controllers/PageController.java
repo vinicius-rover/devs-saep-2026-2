@@ -12,9 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class PageController {
@@ -44,46 +42,6 @@ public class PageController {
 		return "login";
 	}
 
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-		SessaoUtil.RemoverSessao(session);
-		return "redirect:/login";
-	}
-
-	@PostMapping("/login")
-	public String realizarLogin(@RequestParam String email,
-								@RequestParam String senha,
-								Model model,
-								RedirectAttributes redirectAttributes,
-								HttpSession session) {
-
-		UsuarioDto usuarioDto = usuarioService.autenticar(email, senha);
-
-		if (usuarioDto == null) {
-			model.addAttribute("erro", "E-mail ou senha invalidos.");
-			model.addAttribute("email", email);
-			return "login";
-		}
-
-		SessaoDto sessaoDto = new SessaoDto();
-		sessaoDto.setUsuarioId(usuarioDto.getId());
-		sessaoDto.setUsuarioNome(usuarioDto.getNome());
-		sessaoDto.setUserRole(usuarioDto.getUserRole());
-
-		SessaoUtil.RegistrarSessao(session, sessaoDto);
-
-		System.out.println("Sessão: ");
-		System.out.println(sessaoDto.getUsuarioId());
-		System.out.println(sessaoDto.getUsuarioNome());
-
-		redirectAttributes.addFlashAttribute(
-				"mensagem",
-				"Bem-vindo, " + usuarioDto.getNome() + "."
-		);
-
-		return "redirect:/home";
-	}
-
 	@GetMapping("/home")
 	public String home(HttpSession session, Model model) {
 
@@ -94,6 +52,8 @@ public class PageController {
 		}
 
 		model.addAttribute("usuarioLogado", sessaoDto);
+		model.addAttribute("isAdmin", sessaoDto.getUserRole() != null && sessaoDto.getUserRole() == 1);
+		model.addAttribute("baixoEstoque", movimentacaoService.listarBaixoEstoque());
 
 		return "home";
 	}
@@ -138,7 +98,7 @@ public class PageController {
 		model.addAttribute("usuarios", usuarioService.listarTodos());
 
 		UsuarioDto usuarioForm = new UsuarioDto();
-		if (editar != null) {
+		if (editar != null && sessaoDto.getUserRole() != null && sessaoDto.getUserRole() == 1) {
 			UsuarioDto usuarioEncontrado = usuarioService.buscarPorId(editar);
 			if (usuarioEncontrado != null) {
 				usuarioForm = usuarioEncontrado;
@@ -196,10 +156,11 @@ public class PageController {
 		}
 
 		model.addAttribute("usuarioLogado", sessaoDto);
+		model.addAttribute("isAdmin", sessaoDto.getUserRole() != null && sessaoDto.getUserRole() == 1);
 		model.addAttribute("categorias", categoriaService.obterCategorias());
 
 		CategoriaDto categoriaForm = new CategoriaDto();
-		if (editar != null) {
+		if (editar != null && sessaoDto.getUserRole() != null && sessaoDto.getUserRole() == 1) {
 			CategoriaDto categoriaEncontrada = categoriaService.obterCategoriaPorId(editar);
 			if (categoriaEncontrada != null) {
 				categoriaForm = categoriaEncontrada;
